@@ -1,4 +1,4 @@
-N8N_WEBHOOK_URL = "https://km2754.app.n8n.cloud/webhook-test/bus-arrival/webhook/bus-arrival"
+N8N_WEBHOOK_URL = "https://km2754.app.n8n.cloud/webhook-test/bus-arrival"
 import streamlit as st
 import requests
 import json
