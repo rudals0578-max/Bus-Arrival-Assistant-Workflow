@@ -1,4 +1,4 @@
-N8N_WEBHOOK_URL = "https://https://km2754.app.n8n.cloud/webhook-test/bus-arrival/webhook/bus-arrival"
+N8N_WEBHOOK_URL = "https://km2754.app.n8n.cloud/webhook-test/bus-arrival/webhook/bus-arrival"
 import streamlit as st
 import requests
 import json
@@ -42,7 +42,7 @@ st.markdown('<div class="main-title">🚌 실시간 스마트 버스 도착 비�
 st.markdown('<div class="sub-title">n8n 워크플로우 + 공공데이터포털 실시간 API 연동 데모</div>', unsafe_allow_html=True)
 
 # n8n Webhook URL (나중에 실제 n8n 주소로 교체 가능)
-N8N_WEBHOOK_URL = st.secrets.get("N8N_WEBHOOK_URL", "https://your-n8n-domain.com/webhook/bus-arrival")
+N8N_WEBHOOK_URL = https://https://km2754.app.n8n.cloud/webhook-test/bus-arrival/webhook/bus-arrival
 
 # 4. 빠른 테스트 샘플 버튼
 st.markdown("##### ⚡ 빠른 테스트 (샘플 쿼리)")
