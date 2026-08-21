@@ -1,4 +1,3 @@
-N8N_WEBHOOK_URL = "https://km2754.app.n8n.cloud/webhook-test/bus-arrival"
 import streamlit as st
 import requests
 import json
@@ -41,8 +40,8 @@ st.markdown("""
 st.markdown('<div class="main-title">🚌 실시간 스마트 버스 도착 비서</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-title">n8n 워크플로우 + 공공데이터포털 실시간 API 연동 데모</div>', unsafe_allow_html=True)
 
-# n8n Webhook URL (나중에 실제 n8n 주소로 교체 가능)
-N8N_WEBHOOK_URL = "https://km2754.app.n8n.cloud/webhook-test/bus-arrival/webhook/bus-arrival"
+# n8n Webhook URL (상시 배포용 정확한 경로)
+N8N_WEBHOOK_URL = "https://km2754.app.n8n.cloud/webhook/bus-arrival"
 
 # 4. 빠른 테스트 샘플 버튼
 st.markdown("##### ⚡ 빠른 테스트 (샘플 쿼리)")
@@ -77,37 +76,19 @@ if search_clicked:
     else:
         with st.spinner("🤖 n8n AI 에이전트가 실시간 공공데이터를 조회 중입니다..."):
             try:
-                payload = {
+                # GET 방식으로 파라미터 전달
+                params = {
                     "message": user_query,
                     "timestamp": time.time()
                 }
                 
-                # n8n URL이 기본값인 경우 데모용 가상 데이터로 응답
-                if "your-n8n-domain" in N8N_WEBHOOK_URL:
-                    time.sleep(1.0)
-                    result = {
-                        "status": "success",
-                        "station": "강남역",
-                        "bus_number": "140번",
-                        "first_bus": {
-                            "arrival_time": "3분 20초 후",
-                            "remaining_stops": "2개 전 정류장",
-                            "congestion": "여유"
-                        },
-                        "second_bus": {
-                            "arrival_time": "11분 후",
-                            "remaining_stops": "7개 전 정류장",
-                            "congestion": "보통"
-                        },
-                        "ai_summary": "현재 140번 버스가 약 3분 뒤 도착할 예정입니다. 좌석은 여유롭습니다."
-                    }
+                response = requests.get(N8N_WEBHOOK_URL, params=params, timeout=15)
+                
+                if response.status_code == 200:
+                    result = response.json()
                 else:
-                    response = requests.post(N8N_WEBHOOK_URL, json=payload, timeout=15)
-                    if response.status_code == 200:
-                        result = response.json()
-                    else:
-                        st.error(f"서버 통신 실패 (상태 코드: {response.status_code})")
-                        st.stop()
+                    st.error(f"서버 통신 실패 (상태 코드: {response.status_code})")
+                    st.stop()
 
                 st.success("✅ 실시간 도착 정보 조회 성공!")
                 
